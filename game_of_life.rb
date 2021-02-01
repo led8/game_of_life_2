@@ -1,5 +1,16 @@
 # BASIC FILE
 
+class Game
+
+  attr_accessor :world, :seeds
+
+  def initialize(world=World.new, seeds=[])
+    @world  = world
+    @seeds  = seeds
+  end
+
+end
+
 class World
 
   attr_accessor :rows, :cols, :cell_grid
@@ -26,4 +37,5 @@ class Cell
     @x     = x
     @y     = y
   end
+
 end

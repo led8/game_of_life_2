@@ -59,4 +59,37 @@ describe 'Game of life' do
 
   end
 
+  context 'Game' do
+    subject { Game.new }
+
+    it 'should create a new Game object' do
+      subject.is_a?(Game).should be true
+    end
+
+    it 'should respond to its proper methods' do
+      subject.should respond_to(:world)
+      subject.should respond_to(:seeds)
+    end
+
+    it "should properly initialize" do
+      subject.world.is_a?(World).should be true
+      subject.seeds.is_a?(Array).should be true
+    end
+
+  end
+
+  context 'Rules' do
+    let!(:game) { Game.new }
+
+    context 'Rule n°1 : Any live cell with two or three live neighbours survives' do
+
+      it 'should kill a live cell with 1 neighbour' do
+      end
+
+      it 'should kill a live cell with four or more neighbours' do
+      end
+
+    end
+  end
+
 end
