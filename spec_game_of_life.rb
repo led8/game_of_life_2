@@ -30,6 +30,9 @@ describe 'Game of life' do
 
       subject.cell_grid.each do |row|
         row.is_a?(Array).should be true
+        row.each do |col|
+          col.is_a?(Cell).should be true
+        end
       end
     end
 
@@ -41,6 +44,19 @@ describe 'Game of life' do
     it 'should create a new Cell object' do
       subject.is_a?(Cell).should be true
     end
+
+    it "should respond to its proper methods" do
+      subject.should respond_to(:alive)
+      subject.should respond_to(:x)
+      subject.should respond_to(:y)
+    end
+
+    it "should properly initialize" do
+      subject.alive.should be false
+      subject.x.should be 0
+      subject.y.should be 0
+    end
+
   end
 
 end
