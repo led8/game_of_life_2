@@ -11,6 +11,7 @@ require_relative 'game_of_life.rb'
 
 
 describe 'Game of life' do
+  let!(:world) { World.new }
 
   context 'World' do
     subject { World.new }
@@ -23,6 +24,7 @@ describe 'Game of life' do
       subject.should respond_to(:rows)
       subject.should respond_to(:cols)
       subject.should respond_to(:cell_grid)
+      subject.should respond_to(:live_neighbours_around_cell)
     end
 
     it "should create proper cell grid on initialization" do
@@ -34,6 +36,13 @@ describe 'Game of life' do
           col.is_a?(Cell).should be true
         end
       end
+    end
+
+    it "should detect a neighbour to the North" do
+      subject.cell_grid[0][1].should be_dead
+      subject.cell_grid[0][1].alive = true
+      subject.cell_grid[0][1].should be_alive
+      subject.live_neighbours_around_cell(subject.cell_grid[1][1]).count should == 0
     end
 
   end
@@ -49,6 +58,7 @@ describe 'Game of life' do
       subject.should respond_to(:alive)
       subject.should respond_to(:x)
       subject.should respond_to(:y)
+      subject.should respond_to(:alive?)
     end
 
     it "should properly initialize" do
@@ -71,9 +81,14 @@ describe 'Game of life' do
       subject.should respond_to(:seeds)
     end
 
-    it "should properly initialize" do
+    it "should initialize properly" do
       subject.world.is_a?(World).should be true
       subject.seeds.is_a?(Array).should be true
+    end
+
+    it "should plant seeds properly" do
+      game = Game.new(world, [[1,2],[0,2]])
+      world.cell_grid[1][2].should be_alive
     end
 
   end
@@ -84,9 +99,13 @@ describe 'Game of life' do
     context 'Rule n°1 : Any live cell with two or three live neighbours survives' do
 
       it 'should kill a live cell with 1 neighbour' do
+        game = Game.new(world, [[1,0],[2,0]])
+        game.tick!
+        world.cell_grid[1][0].should be_dead
+        world.cell_grid[2][0].should be_dead
       end
 
-      it 'should kill a live cell with four or more neighbours' do
+      it 'should kill a live cell with 4 or more neighbours' do
       end
 
     end
