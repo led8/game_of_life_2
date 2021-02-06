@@ -42,7 +42,7 @@ describe 'Game of life' do
       subject.cell_grid[0][1].should be_dead
       subject.cell_grid[0][1].alive = true
       subject.cell_grid[0][1].should be_alive
-      subject.live_neighbours_around_cell(subject.cell_grid[1][1]).count should == 0
+      expect(subject.live_neighbours_around_cell(subject.cell_grid[1][1])).to eq(1)
     end
 
   end

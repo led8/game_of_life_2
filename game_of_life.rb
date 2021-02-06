@@ -47,7 +47,7 @@ class World
       live_neighbours << candidate if candidate.alive?
     end
 
-    return live_neighbours
+    return live_neighbours.count
   end
 end
 
@@ -72,5 +72,6 @@ class Cell
 end
 
 game = Game.new
+p game
 p game.world.live_neighbours_around_cell(game.world.cell_grid[1][1])
 
